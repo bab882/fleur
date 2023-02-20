@@ -21,9 +21,25 @@
 
         <div class="body-wrapper">
         {% include "_partials/ltn__header-top-area.html.twig" %}
+        {% include "_partials/show-card-right.html.twig" %}
         {% block body %}{% endblock %}
         {% include '_partials/footer.html.twig' %}
+
+        {% include '_partials/add-to-cart.html.twig' %}
+        {% include '_partials/quick-view.html.twig' %}
+        {% include '_partials/wishlist.html.twig' %}
         </div>
+
+        <!-- preloader area start -->
+        <div class="preloader d-none" id="preloader">
+            <div class="preloader-inner">
+                <div class="spinner">
+                    <div class="dot1"></div>
+                    <div class="dot2"></div>
+                </div>
+            </div>
+        </div>
+        <!-- preloader area end -->
         
         {{ encore_entry_script_tags('app') }}
         {% block javascripts %}{% endblock %}
