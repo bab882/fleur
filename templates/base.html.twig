@@ -1,23 +1,26 @@
-<!DOCTYPE html>y
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <meta name="robots" content="noindex, follow" />
-        <meta name="description" content="">
+        <meta name="description" content="{% block description %}Welcome!{% endblock %}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <link rel="shortcut icon" href="{{  asset('img/favicon.png')    }}" type="image/x-icon" />
 
         {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
-
-        
-        
+    
     </head>
     <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+        <div class="body-wrapper">
+        {% include "_partials/ltn__header-top-area.html.twig" %}
         {% block body %}{% endblock %}
         
         {{ encore_entry_script_tags('app') }}
