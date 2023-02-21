@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -27,6 +30,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $FirstName = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $MiddleName = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $LastName = null;
+
+    #[ORM\Column(length: 15, nullable: true)]
+    private ?string $Mobile = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Vendor = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $RegistredAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $LastLogin = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $Profile = null;
 
     public function getId(): ?int
     {
@@ -96,5 +126,113 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->FirstName;
+    }
+
+    public function setFirstName(?string $FirstName): self
+    {
+        $this->FirstName = $FirstName;
+
+        return $this;
+    }
+
+    public function getMiddleName(): ?string
+    {
+        return $this->MiddleName;
+    }
+
+    public function setMiddleName(?string $MiddleName): self
+    {
+        $this->MiddleName = $MiddleName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->LastName;
+    }
+
+    public function setLastName(?string $LastName): self
+    {
+        $this->LastName = $LastName;
+
+        return $this;
+    }
+
+    public function getMobile(): ?string
+    {
+        return $this->Mobile;
+    }
+
+    public function setMobile(?string $Mobile): self
+    {
+        $this->Mobile = $Mobile;
+
+        return $this;
+    }
+
+    public function getVendor(): ?string
+    {
+        return $this->Vendor;
+    }
+
+    public function setVendor(?string $Vendor): self
+    {
+        $this->Vendor = $Vendor;
+
+        return $this;
+    }
+
+    public function getRegistredAt(): ?\DateTimeImmutable
+    {
+        return $this->RegistredAt;
+    }
+
+    public function setRegistredAt(?\DateTimeImmutable $RegistredAt): self
+    {
+        $this->RegistredAt = $RegistredAt;
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeImmutable
+    {
+        return $this->LastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeImmutable $LastLogin): self
+    {
+        $this->LastLogin = $LastLogin;
+
+        return $this;
+    }
+
+    public function getProfile(): ?string
+    {
+        return $this->Profile;
+    }
+
+    public function setProfile(?string $Profile): self
+    {
+        $this->Profile = $Profile;
+
+        return $this;
     }
 }
