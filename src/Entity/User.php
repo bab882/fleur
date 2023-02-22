@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    
     use RegistredAtTrait;
 
     #[ORM\Id]
@@ -37,25 +38,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $FirstName = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $MiddleName = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $LastName = null;
 
-    #[ORM\Column(length: 15, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Mobile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Vendor = null;
 
-    
-
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $LastLogin = null;
+
+    #[ORM\Column(length: 1, nullable: true)]
+    private ?string $intro = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $Profile = null;
@@ -202,7 +204,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-   
     public function getLastLogin(): ?\DateTimeImmutable
     {
         return $this->LastLogin;
@@ -211,6 +212,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastLogin(?\DateTimeImmutable $LastLogin): self
     {
         $this->LastLogin = $LastLogin;
+
+        return $this;
+    }
+
+    public function getIntro(): ?string
+    {
+        return $this->intro;
+    }
+
+    public function setIntro(?string $intro): self
+    {
+        $this->intro = $intro;
 
         return $this;
     }
