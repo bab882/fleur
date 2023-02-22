@@ -2,18 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use App\Entity\Trait\RegistredAtTrait;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use RegistredAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -49,8 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Vendor = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $RegistredAt = null;
+    
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $LastLogin = null;
@@ -200,18 +202,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRegistredAt(): ?\DateTimeImmutable
-    {
-        return $this->RegistredAt;
-    }
-
-    public function setRegistredAt(?\DateTimeImmutable $RegistredAt): self
-    {
-        $this->RegistredAt = $RegistredAt;
-
-        return $this;
-    }
-
+   
     public function getLastLogin(): ?\DateTimeImmutable
     {
         return $this->LastLogin;
