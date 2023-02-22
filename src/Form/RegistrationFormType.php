@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -23,25 +24,27 @@ class RegistrationFormType extends AbstractType
             ->add('FirstName', TextType::class, [
                 'attr' => [
                     'placeholder' => 'First name'
-                ],
+                ]
             ])
             ->add('LastName', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Last name'
-                ],
+                ]
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
                     'placeholder' => 'email address'
-                ],
-            ])
+                ]
+            ]) 
             ->add('Mobile', TelType::class, [
                 'attr' => [
                     'placeholder' => 'phone number'
-                ],
-            ])
+                ]
+            ]) 
             // Le profile permet de créer sont compte
-            ->add('Profile')
+            ->add('Profile') 
+          
+            
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
