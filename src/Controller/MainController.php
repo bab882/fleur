@@ -9,17 +9,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    private $productRepository;
+    // private $productRepository;
 
-    public function __construct(ProductRepository $productRepository)
-    {
-        $this->productRepository = $productRepository;
-    }
+    // public function __construct(ProductRepository $productRepository)
+    // {
+    //     $this->productRepository = $productRepository;
+    // }
 
     #[Route('/', name: 'app_main')]
-    public function index(): Response
+    public function index(ProductRepository $productRepository): Response
     {
-        $product = $this->productRepository->findAll();
+        $product = $productRepository->findById([]);
         dd($product);
    
         return $this->render('main/index.html.twig', [
