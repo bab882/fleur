@@ -27,12 +27,28 @@ class UserFixtures extends Fixture
             $IsVerified = rand(0,1);
 
             $user = new User();
+
+            if ($i == 0) {
+                $user->setEmail( 'brandon@hotmail.com' );
+                $user->setPassword( $this->encoder->hashPassword( $user, '123456789' ) );
+                $user->setIsVerified( '1' );
+                $user->setRoles( array('ROLE_ADMIN') );
+                $user->setFirstName( 'Brandon' );
+                $user->setMiddleName( 'CCI' );
+                $user->setLastName( 'CHANITE' );
+                $user->setMobile( '0620145500' );
+                $user->setVendor( '1' );
+                $user->setRegistredAt(new \DateTimeImmutable);
+                $user->setLastLogin(new \DateTimeImmutable);
+                $user->setIntro('1');
+                $user->setProfile('je suis le patron du site internet...');
+            }
+
+
             $user->setEmail( $faker->email() );
             $user->setPassword( $this->encoder->hashPassword( $user, '123456789' ) );
             $user->setIsVerified( $IsVerified );
-            $user->setRoles( array('ROLE_USER') );
-
-            
+            $user->setRoles( array('ROLE_USER') ); 
             $user->setFirstName( $faker->firstName() );
             $user->setMiddleName( $faker->firstName() );
             $user->setLastName( $faker->lastName() );
@@ -43,6 +59,10 @@ class UserFixtures extends Fixture
             $user->setIntro('1');
             $user->setProfile('88');
 
+
+            // je vais enregister de maniere aléatoire des utilisateurs.
+            $this->addReference('user_' . $i, $user);
+            
             $manager->persist($user);
         }
 

@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -41,10 +42,7 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'phone number'
                 ]
             ]) 
-            // Le profile permet de créer sont compte
-            ->add('Profile') 
           
-            
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -81,6 +79,14 @@ class RegistrationFormType extends AbstractType
                 // Instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
+
+                
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Register',
+                'attr' => [
+                    'class' => 'btn theme-btn-1 btn-effect-1 text-uppercase'
+                ]
             ])
         ;
     }
