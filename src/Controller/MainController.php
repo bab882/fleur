@@ -19,11 +19,11 @@ class MainController extends AbstractController
     #[Route('/', name: 'app_main')]
     public function index(ProductRepository $productRepository): Response
     {
-        $product = $productRepository->findById([]);
-        dd($product);
+        $product = $productRepository->findBy([],['PublishedAt' => 'DESC'],8);
+        // dd($product);
    
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
+            'newproducts' => $productRepository->findBy([],['PublishedAt' => 'DESC'],6),
         ]);
     }
 }
