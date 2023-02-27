@@ -12,12 +12,17 @@
 
                 {# {{ dump(newproducts )}} #}
                 {% for product in newproducts %}
+                {# {{ dump(product.Pictures) }} #}
                 <!-- ltn__product-item -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                     <div class="ltn__product-item text-center">
                         <div class="product-img">
-                            <a href="{{ path('app_product', {'slug': product.Slug}) }}"><img src="img/product/6.png" alt="#"></a>
-                            
+                            <a href="{{ path('app_product', {'slug': product.Slug}) }}">
+                                {% for ImageProduit in product.Pictures %}
+                                    {% if loop.index0 == 0 %}
+                                        <img src="{{ vich_uploader_asset(ImageProduit, 'imageFile') }}" alt="{{ ImageProduit.Alt }}" height="200"></a>
+                                    {% endif %}    
+                                {% endfor %}
                             {% if product.Discount is not null %}
                             <div class="product-badge">
                                 <ul>
@@ -34,7 +39,7 @@
                                         </a>
                                     </li>
                                     <li class="add-to-cart">
-                                        <a href="#" title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
+                                        <a href="{{ path('cart_index', {'id': product.Id}) }}" title="Add to Cart" data-bs-toggle="modal" data-bs-target="#add_to_cart_modal">
                                             <span class="cart-text d-none d-xl-block">Add to Cart</span>
                                             <span class="d-block d-xl-none"><i class="icon-handbag"></i></span>
                                         </a>
@@ -49,9 +54,9 @@
 
                             {% set DateJour = "now"|date("Y/m/d") %}
 
-                            {% if product.EndsAt|date("Y/m/d") > DateJour %}
+                            {% if product.EndAt|date("Y/m/d") > DateJour %}
                             <div class="ltn__product-countdown">
-                                <div class="ltn__countdown" data-countdown="{{ product.EndsAt|date("Y/m/d") }}"></div>
+                                <div class="ltn__countdown" data-countdown="{{ product.EndAt|date("Y/m/d") }}"></div>
                             </div>
                             {% endif %}
 
@@ -67,7 +72,7 @@
                                 <span>${{ product.Price }}</span>
                             {% endif %}
                             {% if product.Discount is not null %}
-                                <span>${{ product.Price - (product.price * product.discount / 100)|number_format(2, '.', ',') }}</span>
+                                <span>${{ product.Price - (product.price * product.discount / 100) }}</span>
                                 <del>${{ product.Price }}</del>
                             {% endif %}   
 
